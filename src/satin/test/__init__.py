@@ -19,31 +19,6 @@
 #   along with satin-python.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-Module for enumerating control hierarchy
+Tests for satin
 """
-
-def collect_widgets(widget):
-    """
-    Iterate over widget and collect all sub-widgets
-
-    :param widget: widget to process
-    :type widget: QWidget
-    :return: list of widgets
-    :rtype: [QWidget]
-    """
-    widgets = []
-
-    if hasattr(widget, 'count'):
-        for index in range(widget.count()):
-            widgets.extend(collect_widgets(widget.itemAt(index)))
-    elif hasattr(widget, 'widget'):
-        widgets.append(widget.widget())
-    elif hasattr(widget, 'layout'):
-        if widget.layout() != None:
-            widgets.extend(collect_widgets(widget.layout()))
-        else:
-            widgets.append(widget)
-    else:
-        widgets.append(widget)
-
-    return widgets
+pass

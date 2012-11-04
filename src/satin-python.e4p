@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-4.6.dtd">
 <!-- eric4 project file for project satin-python -->
-<!-- Saved: 2012-11-04, 10:42:36 -->
+<!-- Saved: 2012-11-04, 15:03:59 -->
 <!-- Copyright (C) 2012 Tuukka Turto, tuukka.turto@oktaeder.net -->
 <Project version="4.6">
   <Language></Language>
@@ -15,6 +15,9 @@
     <Source>satin/__init__.py</Source>
     <Source>satin/enumerators.py</Source>
     <Source>satin/label.py</Source>
+    <Source>satin/test/__init__.py</Source>
+    <Source>satin/test/test_enumerator.py</Source>
+    <Source>satin/test/test_label.py</Source>
   </Sources>
   <Forms>
   </Forms>

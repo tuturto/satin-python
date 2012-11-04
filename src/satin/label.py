@@ -36,7 +36,10 @@ class LabelMatcher(BaseMatcher):
         """
         super(LabelMatcher, self).__init__()
 
-        self.text = text
+        if hasattr(text, 'matches'):
+            self.text = text
+        else:
+            self.text = wrap_matcher(text)
 
     def _matches(self, item):
         """
@@ -71,4 +74,4 @@ def has_label(text):
     """
     Check if Widget has label with given text
     """
-    return LabelMatcher(wrap_matcher(text))
+    return LabelMatcher(text)
