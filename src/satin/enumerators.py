@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#   Copyright 2010-2012 Tuukka Turto
+#   Copyright 2012 Tuukka Turto
 #
-#   This file is part of pyherc.
+#   This file is part of satin-python.
 #
 #   pyherc is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 #   GNU General Public License for more details.
 #
 #   You should have received a copy of the GNU General Public License
-#   along with pyherc.  If not, see <http://www.gnu.org/licenses/>.
+#   along with satin-python.  If not, see <http://www.gnu.org/licenses/>.
 
 """
 Module for enumerating control hierarchy
