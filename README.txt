@@ -10,7 +10,6 @@ Labels
 ------
 To check that a widget has label with text 'Title':
 
-.. code-block:: python
     assert_that(item, has_label('Title'))
 
 License
