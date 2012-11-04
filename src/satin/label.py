@@ -52,7 +52,7 @@ class LabelMatcher(BaseMatcher):
         widgets = collect_widgets(item)
 
         for widget in widgets:
-            if self.text.matches(widget.text()):
+            if hasattr(widget, 'text') and self.text.matches(widget.text()):
                 return True
 
         return False

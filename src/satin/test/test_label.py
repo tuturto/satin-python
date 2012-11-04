@@ -23,6 +23,7 @@ Tests for labels
 """
 #pylint: disable=C0103, R0201
 from PyQt4.QtGui import QApplication, QLabel
+from PyQt4.QtSvg import QSvgWidget
 from hamcrest import is_, equal_to, assert_that
 from satin.label import LabelMatcher
 
@@ -68,3 +69,13 @@ class TestLabelMatching(object):
         matcher = LabelMatcher(text = 'Intro')
 
         assert_that(matcher.matches(label), is_(equal_to(False)))
+
+    def test_non_label(self):
+        """
+        Widget without text property should not match or crash the system
+        """
+        widget = QSvgWidget()
+
+        matcher = LabelMatcher(text = 'Intro')
+
+        assert_that(matcher.matches(widget), is_(equal_to(False)))
