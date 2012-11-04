@@ -19,7 +19,28 @@
 #   along with pyherc.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-Matcher library for UI testing with PyQt
+Module for enumerating control hierarchy
 """
 
-from .label import has_label
+def collect_widgets(widget):
+    """
+    Iterate over widget and collect all sub-widgets
+
+    :param widget: widget to process
+    :type widget: QWidget
+    :return: list of widgets
+    :rtype: [QWidget]
+    """
+    widgets = []
+
+    if hasattr(widget, 'count'):
+        for index in range(widget.count()):
+            widgets.extend(collect_widgets(widget.itemAt(index)))
+    elif hasattr(widget, 'widget'):
+        widgets.append(widget.widget())
+    elif hasattr(widget, 'layout'):
+        widgets.extend(collect_widgets(widget.layout()))
+    else:
+        widgets.append(widget)
+
+    return widgets
