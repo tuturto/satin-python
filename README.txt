@@ -6,6 +6,13 @@ satin-python is simple UI matcher and driver library, built on top of hamcrest a
 Usage
 =====
 
+Finding specific widget
+-----------------------
+To find a specific widget, use find_widget
+
+    sub_widget = find_widget(widget,
+                             lambda sub_widget: sub_widget.objectName() == 'Item')
+
 Labels
 ------
 To check that a widget has label with text 'Title':

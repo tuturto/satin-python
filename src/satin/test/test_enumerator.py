@@ -24,10 +24,11 @@ Tests for enumerators
 #pylint: disable=C0103, R0201
 from PyQt4.QtGui import QApplication, QLabel, QHBoxLayout
 from satin.enumerators import iterate_widgets
+from satin import find_widget
 
-from hamcrest import assert_that, contains_inanyorder
+from hamcrest import assert_that, contains_inanyorder, is_, equal_to
 
-class TestFindingWidgets(object):
+class TestEnumeratingWidgets(object):
     """
     Tests for enumerating widgets
     """
@@ -35,7 +36,7 @@ class TestFindingWidgets(object):
         """
         Default constructor
         """
-        super(TestFindingWidgets, self).__init__()
+        super(TestEnumeratingWidgets, self).__init__()
         self.application = None
 
     def setup(self):
@@ -111,4 +112,49 @@ class TestFindingWidgets(object):
         for widget in iterate_widgets(outer_layout):
             widgets.append(widget)
 
+        print widgets
         assert_that(widgets, contains_inanyorder(label_1, label_2))
+
+class TestFindingWidgets(object):
+    """
+    Tests for locating sub widget
+    """
+    def __init__(self):
+        """
+        Default constructor
+        """
+        super(TestFindingWidgets, self).__init__()
+
+        self.application = None
+
+    def setup(self):
+        """
+        Setup test case
+        """
+        self.application = QApplication([])
+
+    def teardown(self):
+        """
+        Tear down the test case
+        """
+        self.application = None
+
+    def test_finding_widget(self):
+        """
+        Test that a sub widget can be found
+        """
+        outer_layout = QHBoxLayout()
+        inner_layout = QHBoxLayout()
+        label_1 = QLabel('one')
+        label_2 = QLabel('two')
+        label_3 = QLabel('three')
+
+        inner_layout.addWidget(label_1)
+        inner_layout.addWidget(label_2)
+        outer_layout.addLayout(inner_layout)
+        outer_layout.addWidget(label_3)
+
+        widget = find_widget(outer_layout,
+                             lambda control: control.text() == 'three')
+
+        assert_that(widget, is_(equal_to(label_3)))

@@ -36,16 +36,41 @@ def iterate_widgets(widget):
             if hasattr(widget, 'itemAt'):
                 generator = iterate_widgets(widget.itemAt(index))
                 for sub_widget in generator:
-                    yield sub_widget
+                    if sub_widget != None:
+                        yield sub_widget
     elif hasattr(widget, 'widget'):
         if widget != None:
-            yield widget.widget()
+            generator = iterate_widgets(widget.widget())
+            for sub_widget in generator:
+                if sub_widget != None:
+                    yield sub_widget
     elif hasattr(widget, 'layout'):
         if widget.layout() != None:
             generator = iterate_widgets(widget.layout())
             for sub_widget in generator:
-                yield sub_widget
-        else:
+                if sub_widget != None:
+                    yield sub_widget
             yield widget
+        else:
+            if widget != None:
+                yield widget
     else:
-        yield widget
+        if widget != None:
+            yield widget
+
+def find_widget(widget, criteria):
+    """
+    Find a sub widget in a widget hierarchy
+
+    :param widget: widget to iterate through
+    :type widget: QWidget
+    :param criteria: search criteria
+    :type: function
+    :returns: widget, if matching one is found, otherwise None
+    :rtype: QWidget
+    """
+    for sub_widget in iterate_widgets(widget):
+        if criteria(sub_widget):
+            return sub_widget
+
+    return None
