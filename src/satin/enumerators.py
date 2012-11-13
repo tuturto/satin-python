@@ -22,28 +22,30 @@
 Module for enumerating control hierarchy
 """
 
-def collect_widgets(widget):
+def iterate_widgets(widget):
     """
     Iterate over widget and collect all sub-widgets
 
     :param widget: widget to process
     :type widget: QWidget
-    :return: list of widgets
-    :rtype: [QWidget]
+    :return: generator to iterate through all widgets
+    :rtype: generator
     """
-    widgets = []
-
-    if hasattr(widget, 'count'):
-        for index in range(widget.count()):
-            widgets.extend(collect_widgets(widget.itemAt(index)))
+    if hasattr(widget, 'itemAt'):
+        for index in xrange(widget.count()):
+            if hasattr(widget, 'itemAt'):
+                generator = iterate_widgets(widget.itemAt(index))
+                for sub_widget in generator:
+                    yield sub_widget
     elif hasattr(widget, 'widget'):
-        widgets.append(widget.widget())
+        if widget != None:
+            yield widget.widget()
     elif hasattr(widget, 'layout'):
         if widget.layout() != None:
-            widgets.extend(collect_widgets(widget.layout()))
+            generator = iterate_widgets(widget.layout())
+            for sub_widget in generator:
+                yield sub_widget
         else:
-            widgets.append(widget)
+            yield widget
     else:
-        widgets.append(widget)
-
-    return widgets
+        yield widget

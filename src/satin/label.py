@@ -23,7 +23,7 @@ Module for testing labels
 """
 from hamcrest.core.base_matcher import BaseMatcher
 from hamcrest.core.helpers.wrap_matcher import wrap_matcher
-from .enumerators import collect_widgets
+from .enumerators import iterate_widgets
 
 class LabelMatcher(BaseMatcher):
     """
@@ -49,7 +49,7 @@ class LabelMatcher(BaseMatcher):
         :returns: True if matching, otherwise False
         :rtype: Boolean
         """
-        widgets = collect_widgets(item)
+        widgets = iterate_widgets(item)
 
         for widget in widgets:
             if hasattr(widget, 'text') and self.text.matches(widget.text()):

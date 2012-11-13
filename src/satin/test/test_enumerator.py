@@ -23,7 +23,7 @@ Tests for enumerators
 """
 #pylint: disable=C0103, R0201
 from PyQt4.QtGui import QApplication, QLabel, QHBoxLayout
-from satin.enumerators import collect_widgets
+from satin.enumerators import iterate_widgets
 
 from hamcrest import assert_that, contains_inanyorder
 
@@ -56,7 +56,9 @@ class TestFindingWidgets(object):
         """
         label = QLabel()
 
-        widgets = collect_widgets(label)
+        widgets = []
+        for widget in iterate_widgets(label):
+            widgets.append(widget)
 
         assert_that(widgets, contains_inanyorder(label))
 
@@ -69,7 +71,9 @@ class TestFindingWidgets(object):
 
         layout.addWidget(label)
 
-        widgets = collect_widgets(layout)
+        widgets = []
+        for widget in iterate_widgets(layout):
+            widgets.append(widget)
 
         assert_that(widgets, contains_inanyorder(label))
 
@@ -84,7 +88,9 @@ class TestFindingWidgets(object):
         inner_layout.addWidget(label)
         outer_layout.addLayout(inner_layout)
 
-        widgets = collect_widgets(outer_layout)
+        widgets = []
+        for widget in iterate_widgets(outer_layout):
+            widgets.append(widget)
 
         assert_that(widgets, contains_inanyorder(label))
 
@@ -94,13 +100,15 @@ class TestFindingWidgets(object):
         """
         outer_layout = QHBoxLayout()
         inner_layout = QHBoxLayout()
-        label_1 = QLabel()
-        label_2 = QLabel()
+        label_1 = QLabel('one')
+        label_2 = QLabel('two')
 
         inner_layout.addWidget(label_1)
         outer_layout.addLayout(inner_layout)
         outer_layout.addWidget(label_2)
 
-        widgets = collect_widgets(outer_layout)
+        widgets = []
+        for widget in iterate_widgets(outer_layout):
+            widgets.append(widget)
 
         assert_that(widgets, contains_inanyorder(label_1, label_2))
