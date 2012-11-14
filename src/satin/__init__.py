@@ -23,4 +23,4 @@ Matcher library for UI testing with PyQt
 """
 
 from .label import has_label
-from .enumerators import find_widget
+from .enumerators import widget, all_widgets

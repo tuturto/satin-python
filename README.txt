@@ -8,10 +8,10 @@ Usage
 
 Finding specific widget
 -----------------------
-To find a specific widget, use find_widget
+To find a specific widget, use function widget:
 
-    sub_widget = find_widget(widget,
-                             lambda sub_widget: sub_widget.objectName() == 'Item')
+    sub_widget = widget(dialog,
+                        lambda sub_widget: sub_widget.objectName() == 'Item')
 
 Labels
 ------

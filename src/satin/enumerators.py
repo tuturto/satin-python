@@ -22,7 +22,7 @@
 Module for enumerating control hierarchy
 """
 
-def iterate_widgets(widget):
+def all_widgets(widget):
     """
     Iterate over widget and collect all sub-widgets
 
@@ -34,19 +34,19 @@ def iterate_widgets(widget):
     if hasattr(widget, 'itemAt'):
         for index in xrange(widget.count()):
             if hasattr(widget, 'itemAt'):
-                generator = iterate_widgets(widget.itemAt(index))
+                generator = all_widgets(widget.itemAt(index))
                 for sub_widget in generator:
                     if sub_widget != None:
                         yield sub_widget
     elif hasattr(widget, 'widget'):
         if widget != None:
-            generator = iterate_widgets(widget.widget())
+            generator = all_widgets(widget.widget())
             for sub_widget in generator:
                 if sub_widget != None:
                     yield sub_widget
     elif hasattr(widget, 'layout'):
         if widget.layout() != None:
-            generator = iterate_widgets(widget.layout())
+            generator = all_widgets(widget.layout())
             for sub_widget in generator:
                 if sub_widget != None:
                     yield sub_widget
@@ -58,7 +58,7 @@ def iterate_widgets(widget):
         if widget != None:
             yield widget
 
-def find_widget(widget, criteria):
+def widget(qwidget, criteria):
     """
     Find a sub widget in a widget hierarchy
 
@@ -69,7 +69,7 @@ def find_widget(widget, criteria):
     :returns: widget, if matching one is found, otherwise None
     :rtype: QWidget
     """
-    for sub_widget in iterate_widgets(widget):
+    for sub_widget in all_widgets(qwidget):
         if criteria(sub_widget):
             return sub_widget
 

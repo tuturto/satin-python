@@ -23,8 +23,7 @@ Tests for enumerators
 """
 #pylint: disable=C0103, R0201
 from PyQt4.QtGui import QApplication, QLabel, QHBoxLayout
-from satin.enumerators import iterate_widgets
-from satin import find_widget
+import satin
 
 from hamcrest import assert_that, contains_inanyorder, is_, equal_to
 
@@ -57,11 +56,8 @@ class TestEnumeratingWidgets(object):
         """
         label = QLabel()
 
-        widgets = []
-        for widget in iterate_widgets(label):
-            widgets.append(widget)
-
-        assert_that(widgets, contains_inanyorder(label))
+        assert_that(satin.all_widgets(label),
+                    contains_inanyorder(label))
 
     def test_enumerating_layout_with_widget(self):
         """
@@ -72,11 +68,8 @@ class TestEnumeratingWidgets(object):
 
         layout.addWidget(label)
 
-        widgets = []
-        for widget in iterate_widgets(layout):
-            widgets.append(widget)
-
-        assert_that(widgets, contains_inanyorder(label))
+        assert_that(satin.all_widgets(layout),
+                    contains_inanyorder(label))
 
     def test_layout_inside_layout(self):
         """
@@ -89,11 +82,8 @@ class TestEnumeratingWidgets(object):
         inner_layout.addWidget(label)
         outer_layout.addLayout(inner_layout)
 
-        widgets = []
-        for widget in iterate_widgets(outer_layout):
-            widgets.append(widget)
-
-        assert_that(widgets, contains_inanyorder(label))
+        assert_that(satin.all_widgets(outer_layout),
+                    contains_inanyorder(label))
 
     def test_mixed_layouts_and_widgets(self):
         """
@@ -108,12 +98,8 @@ class TestEnumeratingWidgets(object):
         outer_layout.addLayout(inner_layout)
         outer_layout.addWidget(label_2)
 
-        widgets = []
-        for widget in iterate_widgets(outer_layout):
-            widgets.append(widget)
-
-        print widgets
-        assert_that(widgets, contains_inanyorder(label_1, label_2))
+        assert_that(satin.all_widgets(outer_layout),
+                    contains_inanyorder(label_1, label_2))
 
 class TestFindingWidgets(object):
     """
@@ -154,7 +140,7 @@ class TestFindingWidgets(object):
         outer_layout.addLayout(inner_layout)
         outer_layout.addWidget(label_3)
 
-        widget = find_widget(outer_layout,
-                             lambda control: control.text() == 'three')
+        widget = satin.widget(outer_layout,
+                              lambda control: control.text() == 'three')
 
         assert_that(widget, is_(equal_to(label_3)))
