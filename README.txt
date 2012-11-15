@@ -11,7 +11,10 @@ Finding specific widget
 To find a specific widget, use function widget:
 
     sub_widget = widget(dialog,
-                        lambda sub_widget: sub_widget.objectName() == 'Item')
+                        matcher)
+
+Where dialog is Qt object to examine and matcher is hamcrest matcher capable
+of detecting specific widget.
 
 Labels
 ------

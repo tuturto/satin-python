@@ -26,6 +26,7 @@ from PyQt4.QtGui import QApplication, QLabel, QHBoxLayout
 import satin
 
 from hamcrest import assert_that, contains_inanyorder, is_, equal_to
+from mockito import mock, when
 
 class TestEnumeratingWidgets(object):
     """
@@ -140,7 +141,12 @@ class TestFindingWidgets(object):
         outer_layout.addLayout(inner_layout)
         outer_layout.addWidget(label_3)
 
+        matcher = mock()
+        when(matcher).matches(label_1).thenReturn(False)
+        when(matcher).matches(label_2).thenReturn(False)
+        when(matcher).matches(label_3).thenReturn(True)
+
         widget = satin.widget(outer_layout,
-                              lambda control: control.text() == 'three')
+                              matcher)
 
         assert_that(widget, is_(equal_to(label_3)))

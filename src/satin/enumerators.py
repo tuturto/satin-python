@@ -58,19 +58,19 @@ def all_widgets(widget):
         if widget != None:
             yield widget
 
-def widget(qwidget, criteria):
+def widget(qwidget, matcher):
     """
     Find a sub widget in a widget hierarchy
 
     :param widget: widget to iterate through
     :type widget: QWidget
-    :param criteria: search criteria
-    :type: function
+    :param matcher: matcher
+    :type: hamcrest matcher
     :returns: widget, if matching one is found, otherwise None
     :rtype: QWidget
     """
     for sub_widget in all_widgets(qwidget):
-        if criteria(sub_widget):
+        if matcher.matches(sub_widget):
             return sub_widget
 
     return None
