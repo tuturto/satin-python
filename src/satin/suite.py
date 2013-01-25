@@ -18,10 +18,27 @@
 #   You should have received a copy of the GNU General Public License
 #   along with satin-python.  If not, see <http://www.gnu.org/licenses/>.
 
-"""
-Matcher library for UI testing with PyQt
-"""
+import types
+from PyQt4.QtGui import QApplication
 
-from .label import has_label
-from .enumerators import widget, all_widgets
-from .suite import satin_suite
+def satin_suite(cls):
+
+    if hasattr(cls, 'setup'):
+        orig_setup = cls.setup
+        cls.setup = _setup
+        cls._setup = orig_setup
+
+    if hasattr(cls, 'teardown'):
+        orig_teardown = cls.teardown
+        cls.teardown = _teardown
+        cls._teardown = orig_teardown
+
+    return cls
+
+def _setup(self):
+    self.qt_app = QApplication([])
+    self._setup()
+
+def _teardown(self):
+    self.qt_app = None
+    self._teardown()
