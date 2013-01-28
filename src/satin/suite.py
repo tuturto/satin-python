@@ -20,6 +20,7 @@
 
 from PyQt4.QtGui import QApplication
 from PyQt4 import QtCore
+from hamcrest import assert_that, is_
 
 def satin_suite(cls):
 
@@ -54,7 +55,12 @@ def teardown(fn):
 
 def get_wrapper(original_step):
     def _wrapper(self):
-        getattr(self, '_{0}'.format(original_step))()
+        try:
+            getattr(self, '_{0}'.format(original_step))()
+        except:
+            self.qt_app.exit(-1)
+            raise
+
         self.qt_app.exit(0)
     return _wrapper
 
@@ -67,6 +73,7 @@ def get_test_step(original_step):
         timer.timeout.connect(getattr(self,
                                 '_wrapper_{0}'.format(original_step)))
 
-        self.qt_app.exec_()
+        assert_that(self.qt_app.exec_(), is_(0))
+
     return _step
 
