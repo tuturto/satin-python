@@ -30,14 +30,20 @@ def satin_suite(cls):
     if hasattr(cls, 'teardown'):
         cls.teardown = teardown(cls.teardown)
 
+    methods = {}
+
     for key, attribute in cls.__dict__.items():
+        if hasattr(attribute, '__call__') and 'test_' in key:
+            methods[key] = attribute
+
+    for key, attribute in methods.items():
         if hasattr(attribute, '__call__') and 'test_' in key:
             setattr(cls, '_{0}'.format(key), getattr(cls, key))
             setattr(cls, '_wrapper_{0}'.format(key), get_wrapper(key))
             setattr(cls, key, get_test_step(key))
 
-            getattr(cls, key).im_func.__name__ = getattr(cls, '_{0}'.format(key)).__name__
-            getattr(cls, '_{0}'.format(key)).im_func.__name__ = '_{0}'.format(key)
+            getattr(cls, key).__name__ = getattr(cls, '_{0}'.format(key)).__name__
+            getattr(cls, '_{0}'.format(key)).__name__ = '_{0}'.format(key)
 
     return cls
 

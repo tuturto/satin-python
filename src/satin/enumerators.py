@@ -32,7 +32,7 @@ def all_widgets(widget):
     :rtype: generator
     """
     if hasattr(widget, 'itemAt'):
-        for index in xrange(widget.count()):
+        for index in range(widget.count()):
             if hasattr(widget, 'itemAt'):
                 generator = all_widgets(widget.itemAt(index))
                 for sub_widget in generator:

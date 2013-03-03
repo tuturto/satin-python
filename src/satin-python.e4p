@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE Project SYSTEM "Project-4.6.dtd">
-<!-- eric4 project file for project satin-python -->
-<!-- Saved: 2013-01-27, 17:51:28 -->
+<!DOCTYPE Project SYSTEM "Project-5.1.dtd">
+<!-- eric5 project file for project satin-python -->
+<!-- Saved: 2013-03-03, 08:34:58 -->
 <!-- Copyright (C) 2013 Tuukka Turto, tuukka.turto@oktaeder.net -->
-<Project version="4.6">
+<Project version="5.1">
   <Language></Language>
-  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <Hash>b1177208e803e63c88c432e5fdae470be0ac4e57</Hash>
+  <ProgLanguage mixed="0">Python2</ProgLanguage>
   <ProjectType>Console</ProjectType>
   <Description></Description>
   <Version>0.1</Version>
@@ -20,24 +21,19 @@
     <Source>satin/test/test_label.py</Source>
     <Source>satin/suite.py</Source>
   </Sources>
-  <Forms>
-  </Forms>
-  <Translations>
-  </Translations>
-  <Resources>
-  </Resources>
-  <Interfaces>
-  </Interfaces>
-  <Others>
-  </Others>
+  <Forms/>
+  <Translations/>
+  <Resources/>
+  <Interfaces/>
+  <Others/>
   <Vcs>
     <VcsType>None</VcsType>
   </Vcs>
   <FiletypeAssociations>
-    <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
-    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
-    <FiletypeAssociation pattern="*.py" type="SOURCES" />
-    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES"/>
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.py" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES"/>
   </FiletypeAssociations>
   <Checkers>
     <CheckersParams>
