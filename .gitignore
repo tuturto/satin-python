@@ -1,4 +1,4 @@
-*.py[co]
+*.py[co~]
 
 # Packages
 *.egg
@@ -28,3 +28,4 @@ pip-log.txt
 
 .ropeproject
 _eric4project
+dist
