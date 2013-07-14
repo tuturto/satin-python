@@ -30,8 +30,15 @@ loop running. When the test method completes, QApplication is automatically
 shutdown.
 
     @satin_suite
-    def TestWidget():
-       def test_clicking_around():
+    class TestWidget():
+
+       def setup(self):
+           ...
+
+       def teardown(self):
+           ...
+
+       def test_clicking_around(self):
            ...
 
 License
